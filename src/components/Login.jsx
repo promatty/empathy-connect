@@ -20,49 +20,16 @@ export default function Login() {
 
                 {/* Form */}
                 <form onSubmit={handleSubmit}>
-                    {/* If Signup, show first and last name fields */}
-                    {!isLogin && (
-                        <div>
-                            {/* First Name Field */}
-                            <div className="mb-4">
-                                <label htmlFor="firstName" className="block text-sm font-medium text-[#D4A373]"> {/* Text color: D4A373 */}
-                                    First Name
-                                </label>
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    className="mt-1 block w-full p-3 border border-[#CCD5AE] rounded-md focus:ring-[#D4A373] focus:border-[#D4A373]" 
-                                    placeholder="Enter your first name"
-                                    required
-                                />
-                            </div>
-
-                            {/* Last Name Field */}
-                            <div className="mb-4">
-                                <label htmlFor="lastName" className="block text-sm font-medium text-[#D4A373]">
-                                    Last Name
-                                </label>
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    className="mt-1 block w-full p-3 border border-[#CCD5AE] rounded-md focus:ring-[#D4A373] focus:border-[#D4A373]"
-                                    placeholder="Enter your last name"
-                                    required
-                                />
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Email Field */}
+                    {/* Username Field */}
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-[#D4A373]"> {/* Text color: D4A373 */}
-                            Email
+                        <label htmlFor="username" className="block text-sm font-medium text-[#D4A373]"> {/* Text color: D4A373 */}
+                            Username
                         </label>
                         <input
-                            type="email"
-                            id="email"
+                            type="text"
+                            id="username"
                             className="mt-1 block w-full p-3 border border-[#CCD5AE] rounded-md focus:ring-[#D4A373] focus:border-[#D4A373]"
-                            placeholder="Enter your email"
+                            placeholder="Enter your username"
                             required
                         />
                     </div>

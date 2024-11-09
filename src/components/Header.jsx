@@ -26,7 +26,7 @@ export default function Header() {
                             className="block pr-12 select-none pl-3 py-2 text-[#D4A373] text-sm rounded-md hover:bg-[#FAEDCD] hover:text-[#D4A373]" // Menu item hover effect: FAEDCD
                             role="menuitem"
                         >
-                            Account
+                            Profile
                         </Link>
                         <hr />
                         <Link

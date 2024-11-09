@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
-from ..models import Post
-from .. import db
+from backend.models import Post
+from backend.db import db
+post_blueprint = Blueprint('post_blueprint', __name__)
 
+@post_blueprint.route('/', methods=['POST'])
 def create_post():
     data = request.json
     
@@ -14,11 +16,3 @@ def create_post():
         return jsonify({"error": "All fields (title, body, user_id, community_id) are required"}), 400
 
     new_post = Post(title=title, body=body, user_id=user_id, community_id=community_id)
-
-    try:
-        db.session.add(new_post)
-        db.session.commit()
-        return jsonify({"message": "Post created successfully", "post_id": new_post.id}), 201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500

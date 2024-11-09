@@ -1,18 +1,27 @@
 import { useState, useEffect } from "react";
 import Post from "./Post";
-import fakeData from "../fakeData";
 
+import axios from "axios";
 export default function Profile() {
 	const [posts, setPosts] = useState([]);
 
-	useEffect(() => {
-		// Simulate fetching user's posts
-		const userId = 1; // Assuming the logged-in user has ID 1
-		const userPosts = fakeData.communities.flatMap((community) =>
-			community.posts.filter((post) => post.user_id === userId)
-		);
-		setPosts(userPosts);
-	}, []);
+
+	const getData = async ()=> {
+		
+	
+		try {
+			const response = await axios.get('http://localhost:5000/posts/user/' + 1)
+			setPosts(response.data)
+			
+			console.log('nice', response.data);
+	   
+		} catch (error) {
+			console.error('Error:', error.response ? error.response.data : error.message);
+		   
+		}
+	
+	}
+	useEffect(()=> {getData()}, [])
 
 	return (
 		<section className="flex-1 p-4">

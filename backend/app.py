@@ -9,7 +9,7 @@ app.config.from_object(Config)
 db.init_app(app)
 
 from backend.routes.user_routes import user_blueprint
-from backend.routes.post_routes import post_blueprint
+from backend.routes.individual_post import post_blueprint
 from backend.routes.community_routes import community_blueprint
 
 app.register_blueprint(user_blueprint, url_prefix='/users')

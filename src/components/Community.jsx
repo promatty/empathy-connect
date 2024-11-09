@@ -1,29 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Post from './Post';
 
 export default function Community() {
-    const [communityData, setCommunityData] = useState([
-        { id: 1, name: 'Community One', posts: [
-            { id: 1, title: 'First Post', body: 'This is the first post.' },
-            { id: 2, title: 'Second Post', body: 'This is the second post.' }
-        ]},
-        { id: 2, name: 'Community Two', posts: [
-            { id: 3, title: 'Third Post', body: 'This is the third post.' }
-        ]}
-    ]);
+    const { id } = useParams();
+    const [community, setCommunity] = useState(null);
+
+    useEffect(() => {
+        // Simulate fetching community data based on the ID
+        const fetchCommunity = async () => {
+            const communityData = {
+                id: 1,
+                name: 'Community One',
+                posts: [
+                    { id: 1, title: 'First Post', body: 'This is the first post.' },
+                    { id: 2, title: 'Second Post', body: 'This is the second post.' }
+                ]
+            };
+            setCommunity(communityData);
+        };
+
+        fetchCommunity();
+    }, [id]);
+
+    if (!community) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <div className="flex flex-1 p-4">
-            <aside className="w-48 bg-[#E9EDC9] text-[#D4A373] p-4">
-                {communityData.map(community => (
-                    <div key={community.id}>
-                        <h2>{community.name}</h2>
-                        {community.posts.map(post => (
-                            <Post key={post.id} title={post.title} body={post.body} />
-                        ))}
-                    </div>
-                ))}
-            </aside>
-        </div>
+        <section className="flex-1 p-4">
+            <h2>{community.name}</h2>
+            {community.posts.map(post => (
+                <Post key={post.id} title={post.title} body={post.body} />
+            ))}
+        </section>
     );
 }

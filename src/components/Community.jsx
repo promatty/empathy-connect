@@ -13,15 +13,17 @@ export default function Community() {
     ]);
 
     return (
-        <div>
-            {communityData.map(community => (
-                <div key={community.id}>
-                    <h2>{community.name}</h2>
-                    {community.posts.map(post => (
-                        <Post key={post.id} title={post.title} body={post.body} />
-                    ))}
-                </div>
-            ))}
+        <div className="flex flex-1 p-4">
+            <aside className="w-48 bg-[#E9EDC9] text-[#D4A373] p-4">
+                {communityData.map(community => (
+                    <div key={community.id}>
+                        <h2>{community.name}</h2>
+                        {community.posts.map(post => (
+                            <Post key={post.id} title={post.title} body={post.body} />
+                        ))}
+                    </div>
+                ))}
+            </aside>
         </div>
     );
 }

@@ -8,10 +8,20 @@ export default function Home() {
     ]);
 
     return (
-        <div>
-            {posts.map(post => (
-                <Post key={post.id} title={post.title} body={post.body} />
-            ))}
+        <div className="flex flex-1 p-4">
+            <aside className="w-48 bg-gray-200 p-4">
+                <ul className="list-none p-0">
+                    <li className="my-4">Home</li>
+                    <li className="my-4">Communities</li>
+                    <li className="my-4">Messages</li>
+                    <li className="my-4">Settings</li>
+                </ul>
+            </aside>
+            <section className="flex-1 p-4">
+                {posts.map(post => (
+                    <Post key={post.id} title={post.title} body={post.body} />
+                ))}
+            </section>
         </div>
     );
 }

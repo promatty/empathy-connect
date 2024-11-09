@@ -8,6 +8,7 @@ import Post from './components/Post';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
+import PostList from './components/PostList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ root.render(
               <Route path="/" element={<Home />} />
               <Route path="/community/:id" element={<Community />} />
               <Route path="/post/:id" element={<Post />} />
+              <Route path="/link" element={<PostList/>}></Route>
             </Routes>
           </div>
         </div>

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.models import Community
+from backend.models import User,Community
 from backend.db import db
 
 community_blueprint = Blueprint('community_blueprint', __name__)
@@ -46,3 +46,12 @@ def delete_community(community_id):
     db.session.delete(community)
     db.session.commit()
     return jsonify({'message': 'Community deleted'}), 200
+
+@community_blueprint.route('/user/<int:user_id>/communities', methods=['GET'])
+def get_communities_for_user(user_id):
+    user = User.query.get_or_404(user_id)
+    communities = user.communities
+    return jsonify([{
+        'id': community.id,
+        'name': community.name
+    } for community in communities]), 200

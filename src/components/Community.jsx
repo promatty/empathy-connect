@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Post from './Post';
+import fakeData from '../fakeData';
 
 export default function Community() {
     const { id } = useParams();
@@ -8,19 +9,8 @@ export default function Community() {
 
     useEffect(() => {
         // Simulate fetching community data based on the ID
-        const fetchCommunity = async () => {
-            const communityData = {
-                id: 1,
-                name: 'Community One',
-                posts: [
-                    { id: 1, title: 'First Post', body: 'This is the first post.' },
-                    { id: 2, title: 'Second Post', body: 'This is the second post.' }
-                ]
-            };
-            setCommunity(communityData);
-        };
-
-        fetchCommunity();
+        const communityData = fakeData.communities.find(community => community.id === parseInt(id));
+        setCommunity(communityData);
     }, [id]);
 
     if (!community) {

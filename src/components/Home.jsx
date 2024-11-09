@@ -9,7 +9,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-1 p-4">
-            <aside className="w-48 bg-gray-200 p-4">
+            <aside className="w-48 bg-[#E9EDC9] text-[#D4A373] p-4">
                 <ul className="list-none p-0">
                     <li className="my-4">Home</li>
                     <li className="my-4">Communities</li>

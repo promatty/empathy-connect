@@ -1,0 +1,17 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+CREATE TABLE communities (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    body TEXT NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    community_id INTEGER REFERENCES communities(id) ON DELETE CASCADE
+);

@@ -1,10 +1,13 @@
 from flask import Flask
+from flask_cors import CORS
 from backend.config import Config
 from backend.db import db
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# Enable CORS for all origins
+CORS(app, origins="*")
 
 db.init_app(app)
 

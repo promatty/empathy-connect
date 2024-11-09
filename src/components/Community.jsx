@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Post from './Post';
-import fakeData from '../fakeData';
+
 
 export default function Community() {
     const { id } = useParams();

@@ -11,14 +11,14 @@ def signup():
     new_user = User(username=data['username'], password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({'message': 'User signed up successfully'}), 201
+    return jsonify({"user_id":new_user.id}), 201
 
 @user_blueprint.route('/login', methods=['POST'])
 def login():
     data = request.json
     user = User.query.filter_by(username=data['username']).first()
     if user and check_password_hash(user.password, data['password']):
-        return jsonify({'message': 'Login successful'}), 200
+        return jsonify({"user_id":user.id}), 200
     return jsonify({'message': 'Invalid username or password'}), 401
 
 @user_blueprint.route('/<int:user_id>', methods=['GET'])

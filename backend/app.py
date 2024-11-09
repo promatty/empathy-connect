@@ -1,9 +1,11 @@
 from flask import Flask
 from backend.config import Config
 from backend.db import db
-
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 app.config.from_object(Config)
+cors = CORS(app) 
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 db.init_app(app)

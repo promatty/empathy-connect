@@ -1,4 +1,4 @@
-from . import db
+from backend.db import db
 
 class User(db.Model):
     __tablename__ = 'users'

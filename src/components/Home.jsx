@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Post from './Post';
+import fakeData from '../fakeData';
 
 export default function Home() {
-    const [posts, setPosts] = useState([
-        { id: 1, title: 'First Post', body: 'This is the first post.', user_id: 1, community_id: 1 },
-        { id: 2, title: 'Second Post', body: 'This is the second post.', user_id: 2, community_id: 1 }
-    ]);
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        // Simulate fetching posts data
+        const allPosts = fakeData.communities.flatMap(community => community.posts);
+        setPosts(allPosts);
+    }, []);
 
     return (
         <section className="flex-1 p-4">

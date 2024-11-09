@@ -1,5 +1,10 @@
 from backend.db import db
 
+user_communities = db.Table('user_communities',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('community_id', db.Integer, db.ForeignKey('communities.id'), primary_key=True)
+)
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

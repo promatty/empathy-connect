@@ -24,7 +24,7 @@ export default function Profile() {
 
     return (
         <section className="flex-1 p-4">
-            <h2>Your Posts</h2>
+            <h2 className="text-xl font-medium mb-4">Your Posts</h2>
             {posts.map((post) => (
                 <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
             ))}

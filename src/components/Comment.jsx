@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function Comment({ id, content, username, userId, onDelete }) {
+export default function Comment({ id, contentProp, username, userId, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [editedContent, setEditedContent] = useState(content);
+    const [content,setContent] = useState(contentProp)
+    const [editedContent, setEditedContent] = useState(contentProp);
     const loggedInUserId = localStorage.getItem("user_id");
+    
 
     const toggleEdit = () => {
         setIsEditing(!isEditing);
@@ -13,7 +15,8 @@ export default function Comment({ id, content, username, userId, onDelete }) {
 
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/comments/${id}`, { content: editedContent });
+            const response = await axios.put(`http://localhost:5000/comments/${id}`, { content: editedContent });
+            setContent(response.data.content)
             setIsEditing(false);
         } catch (error) {
             console.error("Error updating comment:", error);

@@ -48,7 +48,7 @@ export default function PostWithComments() {
                         <Comment
                             key={comment.id}
                             id={comment.id}
-                            content={comment.content}
+                            contentProp={comment.content}
                             username={comment.username}
                             userId={comment.user_id}
                             onDelete={handleCommentDeleted}

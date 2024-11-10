@@ -1,9 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import empathyLogo from '../empathy_connect_logo.png';  // Adjust the path for your PNG file
 
 export default function Header() {
     const [toggleDropdown, setToggleDropdown] = useState(false);
+    const navigate = useNavigate();
+
+    // Handle logout logic
+    const handleLogout = () => {
+        localStorage.removeItem('userId'); 
+        navigate('/login');
+    };
 
     return (
         <header className="bg-[#E9EDC9] text-[#D4A373] p-4 flex justify-between items-center border-b border-gray-300">
@@ -42,13 +49,13 @@ export default function Header() {
                             Profile
                         </Link>
                         <hr />
-                        <Link
-                            to="/login"
+                        <button
+                            onClick={handleLogout} // Call handleLogout on click
                             className="block pr-12 select-none pl-3 py-2 text-[#D4A373] text-sm rounded-md hover:bg-[#FAEDCD] hover:text-[#D4A373]"
                             role="menuitem"
                         >
                             Logout
-                        </Link>
+                        </button>
                     </div>
                 </div>
             )}

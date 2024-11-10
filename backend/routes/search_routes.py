@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.models import Community, Post
+from backend.models import Community, Post, User
 
 search_blueprint = Blueprint('search_blueprint', __name__)
 
@@ -14,5 +14,5 @@ def search():
 
     return jsonify({
         'communities': [{'id': community.id, 'name': community.name} for community in communities],
-        'posts': [{'id': post.id, 'title': post.title, 'body': post.body, 'username': post.author.username} for post in posts]
+        'posts': [{'id': post.id, 'title': post.title, 'body': post.body, 'username': User.query.get(post.user_id).username} for post in posts]
     }), 200

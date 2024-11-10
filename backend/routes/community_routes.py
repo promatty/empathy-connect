@@ -85,3 +85,13 @@ def get_community_with_posts(community_id):
     }
     
     return jsonify(response), 200
+
+# Route to leave a community
+@community_blueprint.route('/user/<int:user_id>/communities/<int:community_id>', methods=['DELETE'])
+def leave_community(user_id, community_id):
+    user_community = UserCommunity.query.filter_by(user_id=user_id, community_id=community_id).first()
+    if user_community:
+        db.session.delete(user_community)
+        db.session.commit()
+        return jsonify({"message": "Left the community successfully"}), 200
+    return jsonify({"error": "User is not a member of this community"}), 404

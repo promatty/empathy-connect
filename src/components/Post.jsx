@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import { Link } from 'react-router-dom';
-export default function Post({ title, body, username, id,deletePostCallback }) {
+
+export default function Post({ title, body, username, id, deletePostCallback }) {
     const navigate = useNavigate();
     const loggedInUsername = localStorage.getItem("username");
     const [comments, setComments] = useState([]);
@@ -14,42 +14,35 @@ export default function Post({ title, body, username, id,deletePostCallback }) {
 
     const handleDelete = async () => {
         await axios.delete(`http://localhost:5000/posts/${id}`);
-      
-        deletePostCallback()
-      
+        deletePostCallback();
     };
 
     useEffect(() => {
-        
+        // Placeholder for any side effects related to the post
     }, [id]);
 
-    
-   
-
-   
-
     return (
-        <div className="bg-[#E9EDC9] hover:bg-[#d3e2a4] rounded-md p-4 mb-2 transition-colors duration-200">
-            <div className="bg-[#FEFAE0] rounded-md border-black border-2 p-2 shadow-xl">
-                <div className="flex items-center space-x-4 mb-4">
+        <div className="bg-[#E9EDC9] hover:bg-[#CCD5AE] rounded-lg p-6 mb-4 shadow-md transition-all duration-200">
+            <div className="bg-[#FEFAE0] rounded-lg border-2 border-[#D4A373] p-4 shadow-lg">
+                <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h2 className="font-semibold text-xl text-black">{title}</h2>
-                        <p className="text-sm text-gray-600">Posted by {username}</p>
+                        <h2 className="font-bold text-2xl text-[#3E4B35]">{title}</h2>
+                        <p className="text-sm text-[#6B7B57]">Posted by {username}</p>
                     </div>
                     <div>
                         {username === loggedInUsername && (
-                            <div className="flex items-center space-x-4">
+                            <div className="flex space-x-4">
                                 <button
                                     onClick={redirectToEdit}
                                     type="button"
-                                    className="w-full py-2 px-4 bg-green-200 text-green-800 font-semibold rounded-md shadow-md hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition ease-in-out duration-150"
+                                    className="py-2 px-4 bg-[#D4A373] text-white font-semibold rounded-lg shadow-lg hover:bg-[#E9C29B] focus:outline-none focus:ring-2 focus:ring-[#D4A373] transition ease-in-out duration-200"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={handleDelete}
                                     type="button"
-                                    className="w-full py-2 px-4 bg-red-200 text-red-800 font-semibold rounded-md shadow-md hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 transition ease-in-out duration-150"
+                                    className="py-2 px-4 bg-[#FAEDCD] text-[#D44A37] font-semibold rounded-lg shadow-lg hover:bg-[#F9D0A3] focus:outline-none focus:ring-2 focus:ring-[#D44A37] transition ease-in-out duration-200"
                                 >
                                     Delete
                                 </button>
@@ -57,13 +50,12 @@ export default function Post({ title, body, username, id,deletePostCallback }) {
                         )}
                     </div>
                 </div>
-                <div className="text-black mb-4">
+                <div className="text-[#4A5D40] mb-6">
                     <p>{body}</p>
                 </div>
-                <Link to={`/posts/${id}`} className="text-blue-500 hover:underline mt-2 inline-block">
-                View Full Post with Comments
-            </Link>
-                
+                <Link to={`/posts/${id}`} className="text-[#A3C9D6] hover:underline mt-4 block">
+                    View Full Post with Comments
+                </Link>
             </div>
         </div>
     );

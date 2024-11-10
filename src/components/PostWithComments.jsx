@@ -36,23 +36,29 @@ export default function PostWithComments() {
     if (!post) return <p className="flex justify-center items-center h-screen text-lg">Loading post...</p>;
 
     return (
-        <div className="min-h-screen bg-[#E9EDC9] flex flex-col items-center py-8">
-            <div className="w-full max-w-3xl bg-white p-6 rounded-md shadow-md">
+        <div className="min-h-screen bg-white flex flex-col items-center py-8">
+            <div className="w-full max-w-3xl bg-[#E9EDC9] p-6 rounded-md shadow-md">
                 <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                 <p className="text-sm text-gray-600 mb-2">Posted by {post.username}</p>
                 <p className="text-black mb-6">{post.body}</p>
 
                 <h3 className="font-semibold text-xl text-black mb-4">Comments</h3>
+                <hr className="mb-1" style={{ borderColor: '#D4A373', borderWidth: '1px' }} />
+
                 {comments.length > 0 ? (
-                    comments.map((comment) => (
-                        <Comment
-                            key={comment.id}
-                            id={comment.id}
-                            content={comment.content}
-                            username={comment.username}
-                            userId={comment.user_id}
-                            onDelete={handleCommentDeleted}
-                        />
+                    comments.map((comment, index) => (
+                        <div key={comment.id}>
+                            <Comment
+                                id={comment.id}
+                                content={comment.content}
+                                username={comment.username}
+                                userId={comment.user_id}
+                                onDelete={handleCommentDeleted}
+                            />
+                            {index !== comments.length - 1 && (
+                                <hr className="my-1" style={{ borderColor: '#D4A373', borderWidth: '1px' }} />
+                            )}
+                        </div>
                     ))
                 ) : (
                     <p className="text-sm text-gray-600">No comments yet.</p>

@@ -35,7 +35,7 @@ export default function CommunityList() {
     }
 
     return (
-        <div className="">
+        <div className="m-4">
             {communities.map(c => (
                 <div key={c.id} className="community-item">
                     {/* Render community name using CommunityListItem */}

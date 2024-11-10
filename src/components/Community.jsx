@@ -10,7 +10,8 @@ export default function Community() {
     useEffect(() => {
         const fetchCommunity = async () => {
             
-            const response = await axios.get(`http://localhost:5000/communities/${id}/posts`);
+            
+            const response = await axios.get(`http://localhost:5000/communities/${id}`);
             setCommunity(response.data);
         };
 

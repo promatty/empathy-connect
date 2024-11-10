@@ -12,7 +12,7 @@ export default function Post({ title, body, username,id }) {
     }
    
     return (
-        <div className="bg-[#E9EDC9] rounded-md p-4 mb-2">
+        <div className="bg-[#E9EDC9] hover:bg-[#d3e2a4] rounded-md p-4 mb-2 transition-colors duration-200">
             <div className="bg-[#FEFAE0] rounded-md border-black border-2 p-2 shadow-xl">
                 <div className="flex items-center space-x-4 mb-4">
                     <div>

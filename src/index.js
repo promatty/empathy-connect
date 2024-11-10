@@ -9,9 +9,10 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Login from './components/Login';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
 import PostForm from './components/PostForm';
 import CommunityList from './components/CommunityList';
+import SearchResults from './components/SearchResults'; // Ensure this is imported
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,8 @@ function App() {
             <Route path="/login" element={<Login />} /> 
             <Route path="/postForm/:id" element={<PostForm />} /> 
             <Route path="/community" element={<CommunityList />} /> 
+            <Route path="/createPost" element={<PostForm />} /> 
+            <Route path="/search" element={<SearchResults />} /> {/* Ensure this route is defined */}
           </Routes>
         </div>
       </div>

@@ -1,9 +1,9 @@
-#Setting MySql database
+# Setting up MySql Database
 
-Start up the MySql server and initialize a new database with the root user password being password.
-In mySQLWorkBench create a new scheme named empathy-connect.
+Start up the MySql server and initialize a new database with the root user's password being password.
+In mySQLWorkBench create a new scheme named empathy-connect
 
-##Setting up react app
+## Setting up react app
 
 In the project directory, run:
 

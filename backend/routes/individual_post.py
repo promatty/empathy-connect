@@ -4,7 +4,7 @@ from backend.db import db
 
 post_blueprint = Blueprint('post_blueprint', __name__)
 
-@post_blueprint.route('/', methods=['POST'])
+@post_blueprint.route('/create', methods=['POST'])
 def create_post():
     data = request.json
     

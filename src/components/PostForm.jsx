@@ -54,7 +54,7 @@ const PostForm = () => {
         }
 
         try {
-            if(id === -1) {
+            if(id == -1) {
             const response = await axios.post('http://localhost:5000/posts/create', {
                 title,
                 body,

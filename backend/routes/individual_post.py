@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.models import Post
+from backend.models import Post, User
 from backend.db import db
 
 post_blueprint = Blueprint('post_blueprint', __name__)
@@ -24,12 +24,14 @@ def create_post():
 @post_blueprint.route('/<int:post_id>', methods=['GET'])
 def get_post(post_id):
     post = Post.query.get_or_404(post_id)
+    user = User.query.get(post.user_id)
     return jsonify({
         'id': post.id,
         'title': post.title,
         'body': post.body,
         'user_id': post.user_id,
-        'community_id': post.community_id
+        'community_id': post.community_id,
+        'username': user.username
     }), 200
 
 @post_blueprint.route('/<int:post_id>', methods=['PUT'])
@@ -59,7 +61,8 @@ def get_posts_by_user(user_id):
         'id': post.id,
         'title': post.title,
         'body': post.body,
-        'community_id': post.community_id
+        'community_id': post.community_id,
+        'username': User.query.get(post.user_id).username
     } for post in posts]), 200
 
 @post_blueprint.route('/community/<int:community_id>', methods=['GET'])
@@ -69,5 +72,6 @@ def get_posts_by_community(community_id):
         'id': post.id,
         'title': post.title,
         'body': post.body,
-        'user_id': post.user_id
+        'user_id': post.user_id,
+        'username': User.query.get(post.user_id).username
     } for post in posts]), 200

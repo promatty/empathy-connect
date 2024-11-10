@@ -10,6 +10,11 @@ export default function Header() {
     const handleSearch = (e) => {
         e.preventDefault();
         navigate(`/search?q=${searchQuery}`);
+
+    // Handle logout logic
+    const handleLogout = () => {
+        localStorage.removeItem('userId'); 
+        navigate('/login');
     };
 
     return (
@@ -58,13 +63,13 @@ export default function Header() {
                             Account
                         </Link>
                         <hr />
-                        <Link
-                            to="/login"
+                        <button
+                            onClick={handleLogout} // Call handleLogout on click
                             className="block pr-12 select-none pl-3 py-2 text-[#D4A373] text-sm rounded-md hover:bg-[#FAEDCD] hover:text-[#D4A373]"
                             role="menuitem"
                         >
                             Logout
-                        </Link>
+                        </button>
                     </div>
                 </div>
             )}

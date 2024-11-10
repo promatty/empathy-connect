@@ -9,7 +9,7 @@ In the project directory, run:
 
 ### `npm i`
 
-Installs necessary dependencies and packages.\
+Installs necessary dependencies and packages.
 
 ### `npm start`
 
@@ -26,5 +26,5 @@ cd into project directory, run:
 
 ### `python -m backend.app`
 
-Stars the flask server
+Starts the flask server
 

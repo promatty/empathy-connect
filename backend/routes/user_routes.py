@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 from backend.models import User
 from backend.db import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from backend.models import Post  # Import Post model
+
 user_blueprint = Blueprint('user_blueprint', __name__)
 
 @user_blueprint.route('/signup', methods=['POST'])
@@ -46,3 +48,4 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message': 'User deleted'}), 200
+

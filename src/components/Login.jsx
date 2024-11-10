@@ -18,7 +18,12 @@ export default function Login() {
                     username,
                     password,
                 });
+
                 console.log('Login successful:', response.data);
+
+                // Save user info to localStorage (e.g., save userId or token)
+                localStorage.setItem('userId', response.data.user_id); // Or save the token: response.data.token
+
                 // Navigate to the home page on successful login
                 navigate('/');
             } else {
@@ -27,8 +32,13 @@ export default function Login() {
                     username,
                     password,
                 });
+
                 console.log('Signup successful:', response.data);
-                // Redirect to the homepage after signup (no need to go to the login page)
+
+                // Save user info to localStorage after signup (e.g., userId or token)
+                localStorage.setItem('userId', response.data.user_id); // Or save the token: response.data.token
+
+                // Navigate to the homepage after signup (no need to go to the login page)
                 navigate('/');
             }
         } catch (error) {

@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import Login from './components/Login';
 import Profile from './components/Profile'
 import PostForm from './components/PostForm';
+import CommunityList from './components/CommunityList';
 
 function App() {
   const location = useLocation();
@@ -29,7 +30,8 @@ function App() {
             <Route path="/post/:id" element={<Post />} />
             <Route path='/profile' element={<Profile/>} />
             <Route path="/login" element={<Login />} /> 
-            <Route path="/createPost" element={<PostForm />} /> 
+            <Route path="/postForm/:id" element={<PostForm />} /> 
+            <Route path="/community" element={<CommunityList />} /> 
           </Routes>
         </div>
       </div>

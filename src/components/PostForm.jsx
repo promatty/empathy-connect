@@ -16,20 +16,27 @@ const PostForm = () => {
     const [body, setBody] = useState("");
     const [selectedCommunity, setSelectedCommunity] = useState(null);
     const [communities,setCommunities] = useState([])
-    const userId = 1
+    const userId = localStorage.getItem("user_id")
 
    
 
     useEffect(()=> {
         const getData = async()=> {
             const response = await axios.get(`http://localhost:5000/communities/user/${userId}/communities`)
-            setCommunities(response.data)
-            if(id) {
-                const response = axios.get(`http://localhost:5000/posts/${id}`)
+            const communityOptions = response.data.map(community => ({
+                value: community.id,
+                label: community.name
+            }));
+           
+            setCommunities(communityOptions)
+           
+            if(id && id != -1) {
+                const response = await axios.get(`http://localhost:5000/posts/${id}`)
+               
                 const data = response.data
                 setTitle(data.title)
                 setBody(data.body)
-                setSelectedCommunity(data.selectedCommunity)
+                setSelectedCommunity(communityOptions.find(x=> x.value === data.community_id))
                 }
 
         }
@@ -57,7 +64,7 @@ const PostForm = () => {
             
             }
             else {
-                const response = await axios.put('http://localhost:5000/posts/create', {
+                const response = await axios.put(`http://localhost:5000/posts/${id}`, {
                     title,
                     body,
                     user_id: 1, 
@@ -74,14 +81,12 @@ const PostForm = () => {
         }
     };
 
-    const communityOptions = communities.map(community => ({
-        value: community.id,
-        label: community.name
-    }));
+
+    
 
     return (
         <div className="max-w-lg mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create a New Post</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Post Form</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Title</label>
@@ -106,8 +111,9 @@ const PostForm = () => {
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Community</label>
+                    
                     <Select
-                        options={communityOptions}
+                        options={communities}
                         value={selectedCommunity}
                         onChange={setSelectedCommunity}
                         placeholder="Select a community"

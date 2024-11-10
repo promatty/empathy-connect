@@ -12,9 +12,10 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            let response;
             if (isLogin) {
                 // Login request
-                const response = await axios.post('http://localhost:5000/users/login', {
+                response = await axios.post('http://localhost:5000/users/login', {
                     username,
                     password,
                 });
@@ -28,7 +29,7 @@ export default function Login() {
                 navigate('/');
             } else {
                 // Signup request
-                const response = await axios.post('http://localhost:5000/users/signup', {
+                response = await axios.post('http://localhost:5000/users/signup', {
                     username,
                     password,
                 });
@@ -41,6 +42,8 @@ export default function Login() {
                 // Navigate to the homepage after signup (no need to go to the login page)
                 navigate('/');
             }
+            localStorage.setItem("username",username)
+            localStorage.setItem("user_id",response.data.user_id)
         } catch (error) {
             setErrorMessage(error.response ? error.response.data.message : 'An error occurred');
         }

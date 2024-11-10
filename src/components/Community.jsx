@@ -9,6 +9,7 @@ export default function Community() {
 
     useEffect(() => {
         const fetchCommunity = async () => {
+            
             const response = await axios.get(`http://localhost:5000/communities/${id}/posts`);
             setCommunity(response.data);
         };
@@ -24,7 +25,7 @@ export default function Community() {
         <section className="flex-1 p-4">
             <h2 className="text-xl font-medium mb-4">{community.name}</h2>
             {community.posts.map(post => (
-                <Post key={post.id} title={post.title} body={post.body} username={post.username} />
+                <Post key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
             ))}
         </section>
     );

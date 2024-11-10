@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import './index.css'; // Import Tailwind CSS
+import './index.css'; //tailwind
 import Home from './components/Home';
 import Community from './components/Community';
 import Post from './components/Post';
@@ -12,8 +12,10 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import PostForm from './components/PostForm';
 import CommunityList from './components/CommunityList';
-import SearchResults from './components/SearchResults'; // Ensure this is imported
+import SearchResults from './components/SearchResults'; 
 import PostWithComments from './components/PostWithComments';
+import CommunityForm from './components/CommunityForm'; 
+
 function App() {
   const location = useLocation();
 
@@ -34,8 +36,9 @@ function App() {
             <Route path="/postForm/:id" element={<PostForm />} /> 
             <Route path="/community" element={<CommunityList />} /> 
             <Route path="/createPost" element={<PostForm />} /> 
-            <Route path="/search" element={<SearchResults />} /> {/* Ensure this route is defined */}
+            <Route path="/search" element={<SearchResults />} /> 
             <Route path="/posts/:postId" element={<PostWithComments />} />
+            <Route path="/createCommunity" element={<CommunityForm />} /> 
           </Routes>
         </div>
       </div>

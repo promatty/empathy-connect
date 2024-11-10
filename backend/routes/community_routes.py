@@ -55,3 +55,23 @@ def get_communities_for_user(user_id):
         'id': community.id,
         'name': community.name
     } for community in communities]), 200
+
+
+
+@community_blueprint.route('/<int:community_id>/posts', methods=['GET'])
+def get_community_with_posts(community_id):
+    community = Community.query.get_or_404(community_id)
+    
+    response = {
+        'id': community.id,
+        'name': community.name,
+        'posts': [
+            {
+                'id': post.id,
+                'title': post.title,
+                'body': post.body
+            } for post in community.posts
+        ]
+    }
+    
+    return jsonify(response), 200

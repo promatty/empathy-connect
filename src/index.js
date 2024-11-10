@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Login from './components/Login';
 import Profile from './components/Profile'
+import PostForm from './components/PostForm';
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
             <Route path="/post/:id" element={<Post />} />
             <Route path='/profile' element={<Profile/>} />
             <Route path="/login" element={<Login />} /> 
+            <Route path="/createPost" element={<PostForm />} /> 
           </Routes>
         </div>
       </div>

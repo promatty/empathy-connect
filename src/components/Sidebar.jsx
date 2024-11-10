@@ -59,6 +59,9 @@ export default function Sidebar() {
                 <li className="my-4">
                     <Link to="/settings" className="text-[#D4A373] block py-2 px-4 bg-[#E9EDC9] rounded-md text-left hover:bg-[#D4A373] hover:text-[#E9EDC9] inline-block">Settings</Link>
                 </li>
+                <li className="my-4">
+                    <Link to="/createPost" className="text-[#D4A373] block py-2 px-4 bg-[#E9EDC9] rounded-md text-left hover:bg-[#D4A373] hover:text-[#E9EDC9] inline-block">Create Post</Link>
+                </li>
             </ul>
         </aside>
     );

@@ -8,10 +8,8 @@ export default function Community() {
     const [community, setCommunity] = useState(null);
 
     useEffect(() => {
-       
         const fetchCommunity = async () => {
-            const response = await axios.get(`http://localhost:5000/communities/${id}/posts`)
-        
+            const response = await axios.get(`http://localhost:5000/communities/${id}/posts`);
             setCommunity(response.data);
         };
 
@@ -24,9 +22,9 @@ export default function Community() {
 
     return (
         <section className="flex-1 p-4">
-            <h2>{community.name}</h2>
+            <h2 className="text-xl font-medium mb-4">{community.name}</h2>
             {community.posts.map(post => (
-                <Post key={post.id} title={post.title} body={post.body} />
+                <Post key={post.id} title={post.title} body={post.body} username={post.username} />
             ))}
         </section>
     );

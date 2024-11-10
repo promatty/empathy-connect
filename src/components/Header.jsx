@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import empathyLogo from '../empathy_connect_logo.png'; // Adjust the path for your PNG file
+import empathyLogo from '../empathy-connect-logo.png'; // Adjust the path for your PNG file
 
 export default function Header() {
     const [toggleDropdown, setToggleDropdown] = useState(false);

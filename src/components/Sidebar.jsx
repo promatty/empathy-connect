@@ -1,12 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
     const [isCommunitiesOpen, setIsCommunitiesOpen] = useState(false);
-    const communities = [
-        { id: 1, name: 'Community One' },
-        { id: 2, name: 'Community Two' }
-    ];
+    const [communities, setCommunities] = useState([]);
+
+    // Hardcode userId to 5 for now
+    const userId = 5;
+
+    useEffect(() => {
+        // Fetch communities associated with the specific user
+        const fetchUserCommunities = async () => {
+            try {
+                // Adjusted URL path to match your backend
+                const response = await fetch(`http://localhost:5000/communities/user/${userId}/communities`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setCommunities(data);
+            } catch (error) {
+                console.error('Error fetching communities:', error);
+            }
+        };
+
+        // Fetch communities on component load
+        fetchUserCommunities();
+    }, []);
 
     return (
         <aside className="w-48 bg-[#E9EDC9] text-[#D4A373] p-4 border-r border-gray-300">

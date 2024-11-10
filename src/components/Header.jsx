@@ -10,7 +10,8 @@ export default function Header() {
     const handleSearch = (e) => {
         e.preventDefault();
         navigate(`/search?q=${searchQuery}`);
-
+    }
+    
     // Handle logout logic
     const handleLogout = () => {
         localStorage.removeItem('userId'); 

@@ -51,7 +51,7 @@ export default function Sidebar() {
                         type="button"
                         className="text-green-800 block py-1 px-2 bg-green-200 rounded-md text-left hover:bg-green-400  inline-block text-sm"
                         >
-                        Join new community
+                        View communities
                         </button>
                         <ul className="list-none p-0 mt-2 ml-4">
                             {communities.map(community => (

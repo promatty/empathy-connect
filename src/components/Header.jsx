@@ -37,7 +37,7 @@ export default function Header() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search..."
-                    className="p-2 rounded-md border border-gray-300 w-3/4 focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:border-[#D4A373]" // Adjusted width and added border on focus
+                    className="p-2 rounded-md bg-[#FEFAE0] border border-gray-300 w-3/4 focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:border-[#D4A373]" // Adjusted width and added border on focus
                 />
 
                 <button type="submit"  className="bg-[#D4A373] mx-2 text-white select-none border-2 border-transparent py-2 px-4 cursor-pointer rounded-md hover:bg-[#FAEDCD] hover:text-[#D4A373] hover:border-[#D4A373] transition-all duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:ring-offset-2"
@@ -55,7 +55,7 @@ export default function Header() {
             {/* Dropdown menu */}
             {toggleDropdown && (
                 <div
-                    className="absolute right-0 mt-40 mr-4 w-48 px-1 rounded-md bg-[#FEFAE0] shadow-lg"
+                    className="absolute right-0 mt-40 mr-4 w-48 px-1 rounded-md bg-[#FEFAE0] shadow-lg z-50"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="options-menu"

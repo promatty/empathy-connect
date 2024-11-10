@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CommunityListItem({ name, id }) {
-    const userId = +localStorage.getItem("user_id")
+    const userId = +localStorage.getItem("user_id");
     const navigate = useNavigate();
     const [isMember, setIsMember] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -40,17 +40,19 @@ export default function CommunityListItem({ name, id }) {
     }, [isProcessing, userId, id]);
 
     return (
-        <div className="bg-[#E9EDC9] rounded-md p-4 mb-2 hover:bg-[#DDE7B3]">
-            <div className="bg-[#FEFAE0] rounded-md border-black border-2 p-2 shadow-xl">
-                <div className="flex items-center space-x-4 mb-4">
-                    <div onClick={view} className='cursor-pointer'>
-                        <h2 className="font-semibold text-xl text-black">{name}</h2>
+        <div className="bg-[#CCD5AE] rounded-lg p-4 mb-4 transition transform hover:scale-105 shadow-lg z-10">
+            <div className="bg-[#FEFAE0] rounded-md border border-[#D4A373] p-4 shadow-md">
+                <div className="flex items-center justify-between mb-4">
+                    <div onClick={view} className="cursor-pointer">
+                        <h2 className="font-semibold text-lg text-[#D4A373] hover:text-[#A97D51] transition-colors duration-200">
+                            {name}
+                        </h2>
                     </div>
                     {isMember ? (
                         <button
                             onClick={() => handleAction('remove_user')}
                             type="button"
-                            className="flex-grow-0 py-2 px-4 bg-red-200 text-red-800 font-semibold rounded-md shadow-md hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 transition ease-in-out duration-150"
+                            className="py-2 px-4 bg-red-200 text-red-800 font-semibold rounded-md shadow-md hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50"
                             disabled={isProcessing}
                         >
                             Leave Community
@@ -59,7 +61,7 @@ export default function CommunityListItem({ name, id }) {
                         <button
                             onClick={() => handleAction('add_user')}
                             type="button"
-                            className="flex-grow-0 py-2 px-4 bg-green-200 text-green-800 font-semibold rounded-md shadow-md hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition ease-in-out duration-150"
+                            className="py-2 px-4 bg-green-200 text-green-800 font-semibold rounded-md shadow-md hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50"
                             disabled={isProcessing}
                         >
                             Join Community

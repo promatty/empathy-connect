@@ -29,7 +29,7 @@ export default function Community() {
 
     return (
         <section className="flex-1 p-4">
-            <h2 className="text-xl font-medium mb-4">{community.name}</h2>
+            <h2 className="text-xl text-[#3E4B35] font-medium mb-4">{community.name}</h2>
             {community.posts.map(post => (
                 <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
             ))}

@@ -1,11 +1,10 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from backend.models import Community, Post, User
 
 search_blueprint = Blueprint('search_blueprint', __name__)
 
-@search_blueprint.route('/search', methods=['GET'])
-def search():
-    query = request.args.get('q', '')
+@search_blueprint.route('/search/<string:query>', methods=['GET'])
+def search(query):
     if not query:
         return jsonify({'communities': [], 'posts': []}), 200
 

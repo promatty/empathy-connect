@@ -1,10 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import empathyLogo from '../empathy_connect_logo.png';  // Adjust the path for your PNG file
+import empathyLogo from '../empathy_connect_logo.png'; // Adjust the path for your PNG file
 
 export default function Header() {
     const [toggleDropdown, setToggleDropdown] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        navigate(`/search?q=${searchQuery}`);
 
     // Handle logout logic
     const handleLogout = () => {
@@ -23,7 +28,17 @@ export default function Header() {
                 />
                 <span className="text-[#D4A373] text-xl font-bold">Empathy Connect</span>
             </Link>
-
+            {/* Search bar */}
+            <form onSubmit={handleSearch} className="flex items-center">
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="p-2 rounded-md border border-gray-300"
+                />
+                <button type="submit" className="ml-2 p-2 bg-[#D4A373] text-white rounded-md">Search</button>
+            </form>
             {/* Profile Dropdown */}
             <div
                 onClick={() => setToggleDropdown(!toggleDropdown)}
@@ -31,7 +46,6 @@ export default function Header() {
             >
                 Profile
             </div>
-
             {/* Dropdown menu */}
             {toggleDropdown && (
                 <div
@@ -46,7 +60,7 @@ export default function Header() {
                             className="block pr-12 select-none pl-3 py-2 text-[#D4A373] text-sm rounded-md hover:bg-[#FAEDCD] hover:text-[#D4A373]"
                             role="menuitem"
                         >
-                            Profile
+                            Account
                         </Link>
                         <hr />
                         <button

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Comment from './Comment';
-import CommentForm from './CommentForm';
 
+import { Link } from 'react-router-dom';
 export default function Post({ title, body, username, id,deletePostCallback }) {
     const navigate = useNavigate();
     const loggedInUsername = localStorage.getItem("username");
@@ -22,22 +21,10 @@ export default function Post({ title, body, username, id,deletePostCallback }) {
 
     useEffect(() => {
         
-        const fetchComments = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/comments/post/${id}`);
-                setComments(response.data);
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-            }
-        };
-
-        fetchComments();
     }, [id]);
 
     
-    const handleCommentAdded = (newComment) => {
-        setComments((prevComments) => [...prevComments, newComment]);
-    };
+   
 
    
 
@@ -73,17 +60,10 @@ export default function Post({ title, body, username, id,deletePostCallback }) {
                 <div className="text-black mb-4">
                     <p>{body}</p>
                 </div>
-                <div>
-                    <h3 className="font-semibold text-lg text-black mb-2">Comments</h3>
-                    {comments.length > 0 ? (
-                        comments.map((comment) => (
-                            <Comment key={comment.id} content={comment.content} username={comment.username} />
-                        ))
-                    ) : (
-                        <p className="text-sm text-gray-600">No comments yet.</p>
-                    )}
-                </div>
-                <CommentForm postId={id} onCommentAdded={handleCommentAdded} />
+                <Link to={`/posts/${id}`} className="text-blue-500 hover:underline mt-2 inline-block">
+                View Full Post with Comments
+            </Link>
+                
             </div>
         </div>
     );

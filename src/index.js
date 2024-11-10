@@ -13,7 +13,7 @@ import Profile from './components/Profile';
 import PostForm from './components/PostForm';
 import CommunityList from './components/CommunityList';
 import SearchResults from './components/SearchResults'; // Ensure this is imported
-
+import PostWithComments from './components/PostWithComments';
 function App() {
   const location = useLocation();
 
@@ -35,6 +35,7 @@ function App() {
             <Route path="/community" element={<CommunityList />} /> 
             <Route path="/createPost" element={<PostForm />} /> 
             <Route path="/search" element={<SearchResults />} /> {/* Ensure this route is defined */}
+            <Route path="/posts/:postId" element={<PostWithComments />} />
           </Routes>
         </div>
       </div>

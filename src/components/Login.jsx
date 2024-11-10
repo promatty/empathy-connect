@@ -1,129 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useParams } from 'react-router-dom';
 
-const PostForm = () => {
-    const { id } = useParams();
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-    const [selectedCommunity, setSelectedCommunity] = useState(null);
-    const [communities, setCommunities] = useState([]);
-    const userId = localStorage.getItem("user_id");
-
-    useEffect(() => {
-        const getData = async () => {
-            const response = await axios.get(`http://localhost:5000/communities/user/${userId}/communities`);
-            const communityOptions = response.data.map(community => ({
-                value: community.id,
-                label: community.name
-            }));
-            setCommunities(communityOptions);
-
-            if (id && id !== -1) {
-                const response = await axios.get(`http://localhost:5000/posts/${id}`);
-                const data = response.data;
-                setTitle(data.title);
-                setBody(data.body);
-                setSelectedCommunity(communityOptions.find(x => x.value === data.community_id));
-            }
-        };
-
-        getData();
-    }, [id, userId]);
+export default function Login() {
+    const [isLogin, setIsLogin] = useState(true);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (!selectedCommunity) {
-            alert("Please select a community.");
-            return;
-        }
-
         try {
-            if (id === -1) {
-                await axios.post('http://localhost:5000/posts/create', {
-                    title,
-                    body,
-                    user_id: userId,
-                    community_id: selectedCommunity.value
+            let response;
+            if (isLogin) {
+                // Login request
+                response = await axios.post('http://localhost:5000/users/login', {
+                    username,
+                    password,
                 });
+
+                console.log('Login successful:', response.data);
+
+                // Save user info to localStorage (e.g., save userId or token)
+                localStorage.setItem('userId', response.data.user_id); // Or save the token: response.data.token
+
+                // Navigate to the home page on successful login
+                navigate('/');
             } else {
-                await axios.put(`http://localhost:5000/posts/${id}`, {
-                    title,
-                    body,
-                    user_id: userId,
-                    community_id: selectedCommunity.value
+                // Signup request
+                response = await axios.post('http://localhost:5000/users/signup', {
+                    username,
+                    password,
                 });
+
+                console.log('Signup successful:', response.data);
+
+                // Save user info to localStorage after signup (e.g., userId or token)
+                localStorage.setItem('userId', response.data.user_id); // Or save the token: response.data.token
+
+                // Navigate to the homepage after signup (no need to go to the login page)
+                navigate('/');
             }
-            toast.success("Saved Post!", { position: "top-center" });
+            localStorage.setItem("username",username)
+            localStorage.setItem("user_id",response.data.user_id)
         } catch (error) {
-            toast.error("Error creating post");
-            console.error('Error creating post:', error);
+            setErrorMessage(error.response ? error.response.data.message : 'An error occurred');
         }
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#E9EDC9]">
             <div className="bg-[#FEFAE0] p-8 rounded-lg shadow-lg w-full max-w-md">
-                <h2 className="text-2xl font-bold text-center text-[#D4A373] mb-6">Post Form</h2>
+                <h2 className="text-2xl font-bold text-center text-[#D4A373] mb-6">
+                    {isLogin ? 'Login' : 'Sign Up'}
+                </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-[#D4A373]">Title</label>
+                {errorMessage && (
+                    <p className="text-center text-red-500 mb-4">{errorMessage}</p>
+                )}
+
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label htmlFor="username" className="block text-sm font-medium text-[#D4A373]">
+                            Username
+                        </label>
                         <input
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             className="mt-1 block w-full p-3 border border-[#CCD5AE] rounded-md focus:ring-[#D4A373] focus:border-[#D4A373]"
-                            placeholder="Enter the post title"
+                            placeholder="Enter your username"
+                            required
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-[#D4A373]">Body</label>
-                        <textarea
-                            value={body}
-                            onChange={(e) => setBody(e.target.value)}
-                            required
+                    <div className="mb-6">
+                        <label htmlFor="password" className="block text-sm font-medium text-[#D4A373]">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="mt-1 block w-full p-3 border border-[#CCD5AE] rounded-md focus:ring-[#D4A373] focus:border-[#D4A373]"
-                            placeholder="Enter the post body"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-[#D4A373]">Community</label>
-                        <Select
-                            options={communities}
-                            value={selectedCommunity}
-                            onChange={setSelectedCommunity}
-                            placeholder="Select a community"
-                            className="mt-1"
-                            styles={{
-                                control: (base) => ({
-                                    ...base,
-                                    borderColor: '#CCD5AE',
-                                    boxShadow: 'none',
-                                    '&:hover': { borderColor: '#A0AEC0' },
-                                })
-                            }}
+                            placeholder="Enter your password"
+                            required
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full py-3 bg-[#D4A373] text-white font-semibold rounded-md shadow-md hover:bg-[#FAEDCD] focus:outline-none focus:ring-2 focus:ring-[#D4A373] transition ease-in-out duration-150"
+                        className="w-full p-3 bg-[#D4A373] text-white rounded-md hover:bg-[#FAEDCD] focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:ring-opacity-50"
                     >
-                        Save Post
+                        {isLogin ? 'Login' : 'Sign Up'}
                     </button>
                 </form>
-                <ToastContainer />
+
+                <div className="mt-4 text-center">
+                    <p className="text-sm text-[#D4A373]">
+                        {isLogin ? "Don't have an account?" : 'Already have an account?'}
+                        <Link
+                            to="#"
+                            onClick={() => setIsLogin(!isLogin)}
+                            className="text-[#CCD5AE] font-semibold ml-1 hover:text-[#D4A373]"
+                        >
+                            {isLogin ? 'Sign Up' : 'Login'}
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     );
-};
-
-export default PostForm;
+}

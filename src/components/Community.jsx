@@ -18,6 +18,11 @@ export default function Community() {
         fetchCommunity();
     }, [id]);
 
+    const deletePost = (id)=> {
+        const newPosts = community.posts.filter(x=> x.id !== id)
+        setCommunity({...community,posts:newPosts})
+    }
+
     if (!community) {
         return <div>Loading...</div>;
     }
@@ -26,7 +31,7 @@ export default function Community() {
         <section className="flex-1 p-4">
             <h2 className="text-xl font-medium mb-4">{community.name}</h2>
             {community.posts.map(post => (
-                <Post key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
+                <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
             ))}
         </section>
     );

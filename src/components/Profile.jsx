@@ -17,11 +17,16 @@ export default function Profile() {
 
     useEffect(() => { getData() }, []);
 
+	const deletePost = (id)=> {
+		debugger
+        setPosts(posts.filter(p => p.id !== id))
+    }
+
     return (
         <section className="flex-1 p-4">
             <h2>Your Posts</h2>
             {posts.map((post) => (
-                <Post key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
+                <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} title={post.title} body={post.body} username={post.username} id={post.id} />
             ))}
         </section>
     );

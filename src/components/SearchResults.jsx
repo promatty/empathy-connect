@@ -31,6 +31,11 @@ export default function SearchResults() {
     // Limit the number of news articles displayed (e.g., to 5)
     const limitedNewsArticles = newsArticles.slice(0, 5);
 
+    const deletePost = (id)=> {
+        const newResultsPosts = results.posts.filter(x=> x.id !== id)
+        setResults({...results,posts:newResultsPosts})
+    }
+
     return (
         <section className="bg-[#FEFAE0] p-6 rounded-lg max-w-4xl mx-auto mt-4 mb-4">
             <h2 className="text-[#D4A373] text-2xl font-semibold text-center mb-6">
@@ -64,7 +69,7 @@ export default function SearchResults() {
                         </h3>
                         {results.posts.length > 0 ? (
                             results.posts.map(post => (
-                                <Post key={post.id} title={post.title} body={post.body} username={post.username} />
+                                <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} title={post.title} body={post.body} username={post.username} />
                             ))
                         ) : (
                             <p className="text-black italic text-center">No posts found.</p>

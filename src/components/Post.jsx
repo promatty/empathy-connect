@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 
-export default function Post({ title, body, username, id }) {
+export default function Post({ title, body, username, id,deletePostCallback }) {
     const navigate = useNavigate();
     const loggedInUsername = localStorage.getItem("username");
     const [comments, setComments] = useState([]);
@@ -14,7 +14,10 @@ export default function Post({ title, body, username, id }) {
     };
 
     const handleDelete = async () => {
-        await axios.delete(`http://localhost:5000/posts/delete/${id}`);
+        await axios.delete(`http://localhost:5000/posts/${id}`);
+        debugger;
+        deletePostCallback()
+      
     };
 
     useEffect(() => {
@@ -30,10 +33,12 @@ export default function Post({ title, body, username, id }) {
         fetchComments();
     }, [id]);
 
-    // Callback for when a comment is added
+    
     const handleCommentAdded = (newComment) => {
         setComments((prevComments) => [...prevComments, newComment]);
     };
+
+   
 
     return (
         <div className="bg-[#E9EDC9] hover:bg-[#d3e2a4] rounded-md p-4 mb-2 transition-colors duration-200">

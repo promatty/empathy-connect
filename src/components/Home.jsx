@@ -7,6 +7,7 @@ export default function Home() {
     const [posts, setPosts] = useState([]);
     const location = useLocation();
     const userId = location.state?.userId || localStorage.getItem('userId'); 
+    
 
     useEffect(() => {
         if (!userId) {
@@ -28,11 +29,15 @@ export default function Home() {
         fetchPosts();
     }, [userId]);  
 
+    const deletePost = (id)=> {
+        setPosts(posts.filter(p => p.id !== id))
+    }
+
     return (
         <section className="flex-1 p-4">
             {posts.length > 0 ? (
                 posts.map(post => (
-                    <Post key={post.id} title={post.title} body={post.body} />
+                    <Post key={post.id} title={post.title} body={post.body} deletePostCallback={()=> {deletePost(post.id)}} />
                 ))
             ) : (
                 <p>No posts available.</p>

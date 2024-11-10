@@ -18,7 +18,7 @@ export default function Profile() {
     useEffect(() => { getData() }, []);
 
 	const deletePost = (id)=> {
-		debugger
+		
         setPosts(posts.filter(p => p.id !== id))
     }
 

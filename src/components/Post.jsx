@@ -15,12 +15,13 @@ export default function Post({ title, body, username, id,deletePostCallback }) {
 
     const handleDelete = async () => {
         await axios.delete(`http://localhost:5000/posts/${id}`);
-        debugger;
+      
         deletePostCallback()
       
     };
 
     useEffect(() => {
+        
         const fetchComments = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/comments/post/${id}`);

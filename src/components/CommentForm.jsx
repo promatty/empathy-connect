@@ -4,6 +4,7 @@ import axios from 'axios';
 export default function CommentForm({ postId, onCommentAdded }) {
     const [newComment, setNewComment] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+   
 
     const handleAddComment = async () => {
         if (!newComment.trim()) {
@@ -14,6 +15,7 @@ export default function CommentForm({ postId, onCommentAdded }) {
         setIsSubmitting(true);
 
         try {
+            debugger
             const response = await axios.post(`http://localhost:5000/comments/add`, {
                 content: newComment,
                 user_id: localStorage.getItem("user_id"), 

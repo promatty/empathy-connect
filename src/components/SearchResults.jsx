@@ -69,7 +69,7 @@ export default function SearchResults() {
                         </h3>
                         {results.posts.length > 0 ? (
                             results.posts.map(post => (
-                                <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} title={post.title} body={post.body} username={post.username} />
+                                <Post deletePostCallback={()=> {deletePost(post.id)}} key={post.id} id={post.id} title={post.title} body={post.body} username={post.username} />
                             ))
                         ) : (
                             <p className="text-black italic text-center">No posts found.</p>

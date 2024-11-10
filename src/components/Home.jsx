@@ -51,6 +51,7 @@ export default function Home() {
                 }
 
                 // Update the state with the unique posts
+                debugger
                 setPosts(allPosts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -68,7 +69,7 @@ export default function Home() {
         <section className="flex-1 p-4">
             {posts.length > 0 ? (
                 posts.map(post => (
-                    <Post key={post.id} title={post.title} body={post.body} deletePostCallback={()=> {deletePost(post.id)}} />
+                    <Post key={post.id} id={post.id} title={post.title} body={post.body} deletePostCallback={()=> {deletePost(post.id)}} />
                 ))
             ) : (
                 <p>No posts available.</p>

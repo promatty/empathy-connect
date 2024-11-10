@@ -16,17 +16,48 @@ export default function Home() {
 
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/posts/user/${userId}`);
-                const data = await response.json();
-                console.log('Fetched posts:', data);
-                setPosts(data);
+                // Fetch communities the user is part of
+                const communitiesResponse = await axios.get(`http://localhost:5000/communities/user/${userId}/communities`);
+                const communities = communitiesResponse.data;
+
+                let allPosts = [];
+                const postIds = new Set(); // To keep track of unique post IDs
+
+                // Fetch posts from the user's communities
+                for (let community of communities) {
+                    const postsResponse = await axios.get(`http://localhost:5000/posts/community/${community.id}`);
+                    const communityPosts = postsResponse.data;
+
+                    // Add only unique posts (based on post.id)
+                    for (let post of communityPosts) {
+                        if (!postIds.has(post.id)) {
+                            allPosts.push(post);
+                            postIds.add(post.id);
+                        }
+                    }
+                }
+
+                // Fetch the posts created by the user
+                const userPostsResponse = await axios.get(`http://localhost:5000/posts/user/${userId}`);
+                const userPosts = userPostsResponse.data;
+
+                // Add only unique posts (based on post.id)
+                for (let post of userPosts) {
+                    if (!postIds.has(post.id)) {
+                        allPosts.push(post);
+                        postIds.add(post.id);
+                    }
+                }
+
+                // Update the state with the unique posts
+                setPosts(allPosts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         };
 
         fetchPosts();
-    }, [userId]);  
+    }, [userId]);
 
     return (
         <section className="flex-1 p-4">

@@ -51,7 +51,7 @@ export default function Home() {
                 }
 
                 // Update the state with the unique posts
-                debugger
+               
                 setPosts(allPosts);
             } catch (error) {
                 console.error('Error fetching posts:', error);

@@ -70,7 +70,7 @@ def update_comment(comment_id):
 
     comment.content = content
     db.session.commit()
-    return jsonify({'message': 'Comment updated'}), 200
+    return jsonify({'content':comment.content}), 200
 
 @comment_blueprint.route('/<int:comment_id>', methods=['DELETE'])
 def delete_comment(comment_id):

@@ -86,6 +86,16 @@ def get_community_with_posts(community_id):
     
     return jsonify(response), 200
 
+# Route to leave a community
+@community_blueprint.route('/user/<int:user_id>/communities/<int:community_id>', methods=['DELETE'])
+def leave_community(user_id, community_id):
+    user_community = UserCommunity.query.filter_by(user_id=user_id, community_id=community_id).first()
+    if user_community:
+        db.session.delete(user_community)
+        db.session.commit()
+        return jsonify({"message": "Left the community successfully"}), 200
+    return jsonify({"error": "User is not a member of this community"}), 404
+
 @community_blueprint.route('/add_user', methods=['POST'])
 def add_user_to_community():
     data = request.json
@@ -110,3 +120,28 @@ def add_user_to_community():
     community.members.append(user)
     db.session.commit()
     return jsonify({'message': 'added'}), 201
+
+@community_blueprint.route('/remove_user', methods=['POST'])
+def remove_user_from_community():
+    data = request.json
+    user_id = data.get('user_id')
+    community_id = data.get('community_id')
+
+    if not user_id or not community_id:
+        return jsonify({'error': 'Both user_id and community_id are required.'}), 400
+
+    user = User.query.get(user_id)
+    community = Community.query.get(community_id)
+
+    if not user:
+        return jsonify({'error': 'User not found.'}), 404
+
+    if not community:
+        return jsonify({'error': 'Community not found.'}), 404
+
+    if user not in community.members:
+        return jsonify({'message': 'User is not a member of this community.'}), 400
+
+    community.members.remove(user)
+    db.session.commit()
+    return jsonify({'message': 'removed'}), 200

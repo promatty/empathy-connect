@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.models import User,Community
+from backend.models import User, Community, Post
 from backend.db import db
 
 community_blueprint = Blueprint('community_blueprint', __name__)
@@ -18,9 +18,17 @@ def create_community():
 @community_blueprint.route('/<int:community_id>', methods=['GET'])
 def get_community(community_id):
     community = Community.query.get_or_404(community_id)
+    posts = Post.query.filter_by(community_id=community_id).all()
     return jsonify({
         'id': community.id,
-        'name': community.name
+        'name': community.name,
+        'posts': [{
+            'id': post.id,
+            'title': post.title,
+            'body': post.body,
+            'user_id': post.user_id,
+            'username': User.query.get(post.user_id).username
+        } for post in posts]
     }), 200
 
 @community_blueprint.route('/', methods=['GET'])
@@ -69,7 +77,9 @@ def get_community_with_posts(community_id):
             {
                 'id': post.id,
                 'title': post.title,
-                'body': post.body
+                'body': post.body,
+                'user_id': post.user_id,
+                'username': User.query.get(post.user_id).username
             } for post in community.posts
         ]
     }

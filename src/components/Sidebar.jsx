@@ -70,6 +70,11 @@ export default function Sidebar() {
                         Create Post
                     </Link>
                 </li>
+                <li className="my-4">
+                    <Link to="/createCommunity" className="text-[#D4A373] block py-2 px-4 bg-[#E9EDC9] rounded-md hover:bg-[#D4A373] hover:text-[#FEFAE0] w-full">
+                        Create Community
+                    </Link>
+                </li>
             </ul>
         </aside>
     );

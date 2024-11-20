@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 cd into backend, run:
 
-### `pip install -r 'requirements`
+### `pip install -r requirements.txt
 
 Installs necessary packages
 
